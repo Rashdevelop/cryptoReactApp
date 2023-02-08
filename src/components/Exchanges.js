@@ -2,12 +2,12 @@ import React, { useEffect,useState  } from 'react'
 import {server} from '../index'
 import axios from 'axios'
 import Loader from '../../src/loader/Loader.js'
-import { Container, HStack } from '@chakra-ui/react'
+import { Container,  Box, wrap } from '@chakra-ui/react'
 import ExchangeCard from './ExchangeCard.js'
 
 const Exchanges = () => {
   //states
-  const[Exchange , setExchange]=useState([])
+  const[exchange , setExchange]=useState([])
   const[loading , setloading]=useState(true)
   
   //functioning
@@ -22,11 +22,12 @@ const Exchanges = () => {
    },[])
 
     return (
-     <Container>{loading?<Loader/>:
-     <HStack>{
-      Exchange.map((element)=>(
-           <ExchangeCard id={element.id} name={element.name} year={element.year_established} description ={element.description}></ExchangeCard>
-      ))}</HStack>
+     <Container>{loading?(<Loader/>):(
+     <Box wrap={'wrap'} borderRadius={"base"}>
+      {exchange.map((element)=>(
+           <ExchangeCard id={element.id} name={element.name} url={element.url} image={element.image}></ExchangeCard>
+      ))}</Box>
+     )
      }</Container>
    
   )
