@@ -13,20 +13,23 @@ const Exchanges = () => {
   //functioning
    useEffect(()=>{
     const fetchExchanges=async()=>{
+      try{
       const {data}= await axios.get(`${server}/exchanges`)
       setExchange(data)
-      console.log(data)
       setloading(false)
+      }catch(error){
+        document.write('error ocuured'+error)
+      }
     }
      fetchExchanges()
    },[])
 
     return (
      <Container>{loading?(<Loader/>):(
-     <Box wrap={'wrap'} borderRadius={"base"}>
+     <Container wrap={'wrap'} borderRadius={"base"}>
       {exchange.map((element)=>(
            <ExchangeCard id={element.id} name={element.name} url={element.url} image={element.image}></ExchangeCard>
-      ))}</Box>
+      ))}</Container>
      )
      }</Container>
    
